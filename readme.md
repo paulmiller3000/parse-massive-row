@@ -8,10 +8,23 @@ Solving for this use case:
 
 ## Next Steps
 
-* Remove fast-csv
-* Utilize fs to iterate and split into object (?)
-* May have blank items to remove
+* Remove blank items
 * Validate output
-* Add knex
-* Add environment variables
 * Connect to database and load to table
+* Add sample database create script
+* Add sample file
+* Add license
+
+
+## Getting Started
+* Clone this repository
+* Create a Postgres database using the SQL statements in _sample-database.sql_
+* Rename .env.example to .env and replace the following variables:
+	HOST
+	USER
+	PASSWORD
+	DATABASE
+	PORT
+* Run `npm run` to start
+
+Note: This app is configured to use PostgreSQL. To use a different database, install the package of your choice with `npm install` and then update the DATABASE_CLIENT variable in .env accordingly

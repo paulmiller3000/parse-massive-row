@@ -1,5 +1,10 @@
-#dependencies
+
+# Config
+.env
+/config/config.json
+
+# Dependencies
 /node_modules
 
-# misc
-.env
+# Unique
+STAXMAST_test

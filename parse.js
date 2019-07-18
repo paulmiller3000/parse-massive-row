@@ -1,34 +1,54 @@
+const appconfig = require('./config/config.json');
 const fs = require('fs');
-const csv = require('fast-csv');
+const knex = require('knex');
 
-const parser = csv.parse();
-const fileName = './STAXMAST_test';
-const fileStream = fs.createReadStream(fileName);
+const file = appconfig.file;
+const breakpoint = appconfig.breakpoint;
 
-/*fileStream
-	.pipe(parser)
-	.on('error', error => console.error(error))
-	.on('data', data => {
-		const singleRow = data;
-		const dataArray = singleRow.toString().match(/.{1,200}/g);
-		console.log(dataArray);
-	})
-	.on('end', rowCount => console.log(`Parsed ${rowCount} rows`));
-*/
+const db = knex({
+	client: process.env.DATABASE_CLIENT,
+	connection: {
+		host : process.env.HOST,
+		user : process.env.USER,
+		password : process.env.PASSWORD,
+		database : process.env.DATABASE
+	}
+});
 
-const readFile = () => {
-		fileStream
-		.pipe(parser)
-		.on('error', error => console.error(error))
-		.on('data', data => {
-			const singleRow = data;
-			const dataArray = singleRow.toString().match(/.{1,200}/g);
-			console.log(dataArray);
+const parseFile = (file, breakpoint) => {
+	try {
+		fs.readFile(file, (error, data) => {
+			if (error) {
+				return console.log(error);
+			}
+
+			let lines = [];
+			let bufferString;
+			let jsonObj = [];
+
+			bufferString = data.toString();
+			
+			// Split string into chunks of the specified width and store in an object			
+			lines = bufferString.match(new RegExp('.{1,' + breakpoint + '}', 'g'));
+			for (line of lines) {				
+				jsonObj.push(line);
+			};
+
+			for (obj of jsonObj) {
+				console.log(obj);
+			}
+
 		})
-		.on('end', rowCount => console.log(`Parsed ${rowCount} rows`));
-}
+	} catch (error) {
+		console.log(error);
+		return('false');
+	}
+};
 
-readFile();
+
+
+
+parseFile(file, breakpoint);
 
 
 
