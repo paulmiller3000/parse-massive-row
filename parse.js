@@ -4,6 +4,8 @@ const knex = require('knex');
 
 const file = appconfig.file;
 const breakpoint = appconfig.breakpoint;
+const removeFirstLine = appconfig.removeFirstLine;
+const rowToRemoveFirstCharacters = appconfig.rowToRemoveFirstCharacters;
 
 const db = knex({
 	client: process.env.DATABASE_CLIENT,
@@ -17,6 +19,7 @@ const db = knex({
 
 const parseFile = (file, breakpoint) => {
 	try {
+		// First, open the file to read
 		fs.readFile(file, (error, data) => {
 			if (error) {
 				return console.log(error);
@@ -24,19 +27,27 @@ const parseFile = (file, breakpoint) => {
 
 			let lines = [];
 			let bufferString;
-			let jsonObj = [];
+			let fileString = [];
 
+			// Break file into array where the single line is broken at the specified breakpoint into multiple lines
 			bufferString = data.toString();
-			
-			// Split string into chunks of the specified width and store in an object			
 			lines = bufferString.match(new RegExp('.{1,' + breakpoint + '}', 'g'));
-			for (line of lines) {				
-				jsonObj.push(line);
+
+			for (line of lines) {
+				lineLength = line.trim().length;
+				
+
+				if ( lineLength > 0 && ( (line.substring(0, rowToRemoveFirstCharacters.length) !== rowToRemoveFirstCharacters) ||  rowToRemoveFirstCharacters.length === 0) ) {
+					fileString.push(line);
+				}				
 			};
 
-			for (obj of jsonObj) {
-				console.log(obj);
+			if (removeFirstLine) {
+				fileString.shift();
 			}
+
+			console.log(fileString.length);
+
 
 		})
 	} catch (error) {
@@ -49,6 +60,3 @@ const parseFile = (file, breakpoint) => {
 
 
 parseFile(file, breakpoint);
-
-
-

@@ -1,4 +1,4 @@
-# Parse Single Row
+# Parse Massive Row
 __THIS IS A WORK IN PROGRESS__
 
 Solving for this use case:
@@ -8,7 +8,6 @@ Solving for this use case:
 
 ## Next Steps
 
-* Remove blank items
 * Validate output
 * Connect to database and load to table
 * Add sample database create script
@@ -17,14 +16,23 @@ Solving for this use case:
 
 
 ## Getting Started
+### Basic Setup
 * Clone this repository
 * Create a Postgres database using the SQL statements in _sample-database.sql_
-* Rename .env.example to .env and replace the following variables:
+* Rename .env.example to .env and update the following variables:
 	HOST
 	USER
 	PASSWORD
 	DATABASE
 	PORT
-* Run `npm run` to start
 
-Note: This app is configured to use PostgreSQL. To use a different database, install the package of your choice with `npm install` and then update the DATABASE_CLIENT variable in .env accordingly
+_This app is configured to use PostgreSQL. To use a different database, install the package of your choice with `npm install` and then update the DATABASE_CLIENT variable accordingly_
+
+### File Configuration
+* Rename config-sample.json to config.json and update the following properties:
+	file _Path to your file and the file name_
+	breakpoint _The width at which to break for a new line. If set to 200, each string of 200 characters will be pushed to a new line._
+	removeFirstLine _If set to true, the first line in the parsed object will be removed_
+	rowToRemoveFirstCharacters _In my case, every row that began with a certain string were unnecessary. Setting a value here will remove those rows. Set to empty string to skip_
+
+* Run `npm run` to start

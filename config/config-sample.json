@@ -1,4 +1,6 @@
 {
 	"file": "./test-file",
-	"breakpoint": 200
+	"breakpoint": 200,
+	"removeFirstLine": true, 
+	"rowToRemoveFirstCharacters": "000000000000000000000000000000"
 }
