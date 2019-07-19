@@ -36,27 +36,50 @@ const parseFile = (file, breakpoint) => {
 			for (line of lines) {
 				lineLength = line.trim().length;
 				
-
+				// Remove unnecessary lines as specified in config
 				if ( lineLength > 0 && ( (line.substring(0, rowToRemoveFirstCharacters.length) !== rowToRemoveFirstCharacters) ||  rowToRemoveFirstCharacters.length === 0) ) {
 					fileString.push(line);
 				}				
 			};
 
+			// Remove first line if specifiied in config
 			if (removeFirstLine) {
 				fileString.shift();
 			}
 
-			console.log(fileString.length);
+			// Insert to database
+			const insertData = (dataArray) => {
+			  return new Promise( (resolve, reject) => {
+			    const data = dataArray.map(x => {
+			      return {
+			          file_line: x.line
+			      };
+			    });
 
+			    let insertedRows;
 
-		})
+			    db.insert(data)
+			      .into('file_import')  
+			      .then((result) => {
+			        insertedRows = result.rowCount;
+			        resolve(insertedRows);
+			      })
+			  });
+			}
+
+			const dbLoad = (b) => {
+			  insertData(b).then((result) => {
+			    console.log(`${result} rows inserted.`);
+			    process.exit(0);
+			  })
+			}
+
+			dbLoad(fileString);
+		});
 	} catch (error) {
 		console.log(error);
 		return('false');
 	}
 };
-
-
-
 
 parseFile(file, breakpoint);
