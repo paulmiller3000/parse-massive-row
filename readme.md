@@ -17,11 +17,11 @@ Solving for this use case:
 * Clone this repository
 * Create a Postgres database using the SQL statements in _sample-database.sql_
 * Rename .env.example to .env and update the following variables:
-	* HOST
-	* USER
-	* PASSWORD
-	* DATABASE
-	* PORT
+    * HOST
+    * USER
+    * PASSWORD
+    * DATABASE
+    * PORT
 
 _This app is configured to use PostgreSQL. To use a different database, install the package of your choice with `npm install` and then update the DATABASE_CLIENT variable accordingly_
 
