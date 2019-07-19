@@ -48,11 +48,11 @@ const parseFile = (file, breakpoint) => {
 			}
 
 			// Insert to database
-			const insertData = (dataArray) => {
+			const insertData = (dataArray) => {				
 			  return new Promise( (resolve, reject) => {
 			    const data = dataArray.map(x => {
 			      return {
-			          file_line: x.line
+			          file_line: x
 			      };
 			    });
 

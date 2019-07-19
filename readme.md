@@ -9,8 +9,6 @@ Solving for this use case:
 ## Next Steps
 
 * Validate output
-* Connect to database and load to table
-* Add sample database create script
 * Add sample file
 * Add license
 
