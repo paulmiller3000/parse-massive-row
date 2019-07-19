@@ -1,16 +1,15 @@
 # Parse Massive Row
-__THIS IS A WORK IN PROGRESS__
+__I am working on improving this, but it is fully functional__
 
 Solving for this use case:
 * Single-line text file 45,000,000+ characters long
-* Single row contains 225,000 records, 200 characters in width, that need to be parsed
+* Single row contains 225,000 records, 200 characters in width, that needed to be parsed
 * Once parsed, load into database
 
 ## Next Steps
 
-* Validate output
-* Add sample file
 * Add license
+* Find more graceful solution to end dbLoad function than process.exit
 
 
 ## Getting Started
@@ -34,3 +33,28 @@ _This app is configured to use PostgreSQL. To use a different database, install 
 	rowToRemoveFirstCharacters _In my case, every row that began with a certain string were unnecessary. Setting a value here will remove those rows. Set to empty string to skip_
 
 * Run `npm run` to start
+
+## Demo
+Let's say you have a single-row text file thousands or hundreds of thousands of columns wide (yes, it happens) you need to parse into distinct rows. And perhaps that file has a header "row" you want to eliminate:
+
+![File Start](../assets/parse-massive-row-file-start.png?raw=true)
+
+The data you actually need starts several hundred columns in and is 200 characters in length. In this case, the first desired string starts at position 824:
+
+![Desired String](../assets/parse-massive-row-desired-string.png?raw=true)
+
+Loading your file and set the parameters. For this demo, the defaults are to:
+	
+	1. Load rows in lengths of 200 characters
+	2. Skip blank rows
+	3. Skip rows where the string begins with 000000000
+
+Running `npm start` on this example will report back that two rows have been loaded:
+
+![Program Execution](../assets/parse-massive-row-npm-start.png?raw=true)
+
+Querying the database from a GUI or the console will return the following:
+
+![Database Results](../assets/parse-massive-row-database-load-results.png?raw=true)
+
+Commence rejoicing!
