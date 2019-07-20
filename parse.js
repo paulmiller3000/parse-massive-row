@@ -61,16 +61,19 @@ const parseFile = (file, breakpoint) => {
 			    db.insert(data)
 			      .into('file_import')  
 			      .then((result) => {
-			        insertedRows = result.rowCount;
-			        resolve(insertedRows);
-			      })
+			        insertedRows = result.rowCount;			        
+			        resolve(insertedRows);			        
+			      })			      
+		        .finally(() => {		        	
+		        	db.destroy();
+		        });
 			  });
 			}
 
 			const dbLoad = (b) => {
 			  insertData(b).then((result) => {
 			    console.log(`${result} rows inserted.`);
-			    process.exit(0);
+			    //process.exitCode = 0;
 			  })
 			}
 

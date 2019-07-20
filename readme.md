@@ -1,16 +1,9 @@
 # Parse Massive Row
-__I am working on improving this, but it is fully functional__
+Solves for this use case:
 
-Solving for this use case:
 * Single-line text file 45,000,000+ characters long
 * Single row contains 225,000 records, 200 characters in width, that needed to be parsed
 * Once parsed, load into database
-
-## Next Steps
-
-* Add license
-* Find more graceful solution to end dbLoad function than process.exit
-
 
 ## Getting Started
 ### Basic Setup
@@ -58,3 +51,6 @@ Querying the database from a GUI or the console will return the following:
 ![Database Results](../assets/parse-massive-row-database-load-results.png?raw=true)
 
 Commence rejoicing!
+
+## Future Enhancements
+You may have noticed the __file_transform__ table in the sample database, which is not used in this solution. I may enhance this to further parse the file via database calls, as that was part of my original use case.
