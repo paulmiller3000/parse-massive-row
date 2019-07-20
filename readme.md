@@ -1,3 +1,4 @@
+![License Badge](https://img.shields.io/github/license/paulmiller3000/parse-massive-row.svg?style=plastic)
 # Parse Massive Row
 Solves for this use case:
 
